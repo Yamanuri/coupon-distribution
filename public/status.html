@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Claim Status</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Coupon Distribution System</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/coupons">Available Coupons</a></li>
+          <li><a href="/claim">Claim a Coupon</a></li>
+          <li><a href="/status" class="active">Check Status</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <h2>Check Your Claim Status</h2>
+      
+      <div class="status-box">
+        <p>Check if you're eligible to claim a new coupon or how long you need to wait:</p>
+        <button id="checkStatusButton" class="btn">Check Status</button>
+      </div>
+      
+      <div id="statusContainer" class="status-container" style="display:none;">
+        <div id="statusMessage"></div>
+        <div id="timeRemaining" style="display:none;"></div>
+      </div>
+    </main>
+    
+    <footer>
+      <p>&copy; 2025 Coupon Distribution System | Internship Assignment</p>
+    </footer>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkStatusButton = document.getElementById('checkStatusButton');
+      const statusContainer = document.getElementById('statusContainer');
+      const statusMessage = document.getElementById('statusMessage');
+      const timeRemaining = document.getElementById('timeRemaining');
+      
+      checkStatusButton.addEventListener('click', async () => {
+        // Disable button during processing
+        checkStatusButton.disabled = true;
+        checkStatusButton.textContent = 'Checking...';
+        
+        try {
+          const response = await fetch('/api/check-status');
+          const data  = await response.json();
+      
+      // Show the status container
+      statusContainer.style.display = 'block';
+      
+      if (data.eligible) {
+        statusMessage.innerHTML = '<div class="status-eligible">You are eligible to claim a new coupon!</div>';
+        statusMessage.classList.add('success');
+        statusMessage.classList.remove('waiting');
+        timeRemaining.style.display = 'none';
+      } else {
+        statusMessage.innerHTML = '<div class="status-waiting">You are not eligible to claim a new coupon yet.</div>';
+        statusMessage.classList.add('waiting');
+        statusMessage.classList.remove('success');
+        
+        // Calculate and display time remaining
+        if (data.nextEligibleTime) {
+          const waitTime = new Date(data.nextEligibleTime) - new Date();
+          const days = Math.floor(waitTime / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((waitTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((waitTime % (1000 * 60 * 60)) / (1000 * 60));
+          
+          timeRemaining.style.display = 'block';
+          timeRemaining.innerHTML = `<p>Time remaining: ${days} days, ${hours} hours, and ${minutes} minutes</p>`;
+        }
+      }
+    } catch (error) {
+      statusContainer.style.display = 'block';
+      statusMessage.innerHTML = '<div class="status-error">Error checking status. Please try again later.</div>';
+      statusMessage.classList.add('error');
+      statusMessage.classList.remove('success', 'waiting');
+      console.error('Error checking status:', error);
+    } finally {
+      // Re-enable button after processing
+      checkStatusButton.disabled = false;
+      checkStatusButton.textContent = 'Check Status';
+    }
+  });
+});

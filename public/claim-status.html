@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon Distribution System</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f4f4;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    header h1 {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin: 0 15px;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    nav ul li a:hover {
+      color: #3498db;
+    }
+    
+    nav ul li a.active {
+      color: #3498db;
+      border-bottom: 2px solid #3498db;
+    }
+    
+    main {
+      padding: 2rem 0;
+      min-height: calc(100vh - 150px);
+    }
+    
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+    
+    /* Home page styles */
+    .hero {
+      background-color: #3498db;
+      color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .hero h2 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-card h3 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+    
+    /* Available coupons styles */
+    .coupon-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .coupon-card {
+      background-color: white;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .coupon-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .coupon-card .coupon-header {
+      background-color: #3498db;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .coupon-card .coupon-body {
+      padding: 1rem;
+    }
+    
+    .coupon-card .coupon-footer {
+      padding: 1rem;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    
+    /* Claim a coupon styles */
+    .claim-form {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    /* Status check styles */
+    .status-box {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .status-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .status-eligible {
+      color: #27ae60;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .status-waiting {
+      color: #e67e22;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .status-error {
+      color: #e74c3c;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* About page styles */
+    .about-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #2980b9;
+    }
+    
+    .btn:disabled {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+    }
+    
+    /* Footer styles */
+    footer {
+      background-color: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav ul li {
+        margin: 5px 0;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .coupon-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <header>
+      <h1>Coupon Distribution System</h1>
+      <nav>
+        <ul>
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#coupons" class="nav-link">Available Coupons</a></li>
+          <li><a href="#claim" class="nav-link">Claim a Coupon</a></li>
+          <li><a href="#status" class="nav-link">Check Status</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <!-- Home page content -->
+      <section id="home" class="page">
+        <div class="hero">
+          <h2>Welcome to the Coupon Distribution System</h2>
+          <p>Get access to exclusive discounts and offers with our easy-to-use coupon system.</p>
+          <a href="#coupons" class="btn">View Available Coupons</a>
+        </div>
+        
+        <div class="features">
+          <div class="feature-card">
+            <h3>Wide Selection</h3>
+            <p>Browse through a variety of coupons from different categories to find the perfect discount for your needs.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Easy Claims</h3>
+            <p>Claim coupons with just a few clicks. Our streamlined process makes getting discounts simple and fast.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Real-time Status</h3>
+            <p>Check your eligibility status in real-time and see when you'll be able to claim your next coupon.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Available Coupons page content -->
+      <section id="coupons" class="page" style="display: none;">
+        <h2>Available Coupons</h2>
+        
+        <div class="coupon-list" id="couponList">
+          <!-- Coupon cards will be dynamically inserted here -->
+        </div>
+      </section>
+      
+      <!-- Claim a Coupon page content -->
+      <section id="claim" class="page" style="display: none;">
+        <h2>Claim a Coupon</h2>
+        
+        <form class="claim-form" id="claimForm">
+          <div class="form-group">
+            <label for="userName">Full Name</label>
+            <input type="text" id="userName" name="userName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="userEmail">Email Address</label>
+            <input type="email" id="userEmail" name="userEmail" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="couponSelect">Select Coupon</label>
+            <select id="couponSelect" name="couponSelect" required>
+              <option value="">-- Select a Coupon --</option>
+              <!-- Options will be dynamically inserted here -->
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <button type="submit" class="btn" id="claimButton">Claim Coupon</button>
+          </div>
+        </form>
+        
+        <div id="claimResult" style="display: none;"></div>
+      </section>
+      
+      <!-- Check Status page content -->
+      <section id="status" class="page" style="display: none;">
+        <h2>Check Your Claim Status</h2>
+        
+        <div class="status-box">
+          <p>Check if you're eligible to claim a new coupon or how long you need to wait:</p>
+          <button id="checkStatusButton" class="btn">Check Status</button>
+        </div>
+        
+        <div id="statusContainer" class="status-container" style="display:none;">
+          <div id="statusMessage"></div>
+          <div id="timeRemaining" style="display:none;"></div>
+        </div>
+      </section>
+      
+      <!-- About page content -->
+      <section id="about" class="page" style="display: none;">
+        <h2>About Our Coupon Distribution System</h2>
+        
+        <div class="about-content">
+          <p>The Coupon Distribution System is designed to help users discover and claim valuable discounts from various merchants. Our system ensures fair distribution by implementing a cooldown period between claims.</p>
+          <p>This system was developed as part of an internship assignment to demonstrate proficiency in web development and user experience design.</p>
+          <p>Key features include:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px;">
+            <li>Browse available coupons from different categories</li>
+            <li>Claim coupons with a simple form</li>
+            <li>Check eligibility status in real-time</li>
+            <li>View countdown timer for next eligible claim</li>
+          </ul>
+          <p>For any questions or support, please contact us at support@couponsystem.example.com</p>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2025 Coupon Distribution System | Internship Assignment</p>
+    </footer>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mock data for coupons
+      const coupons = [
+        {
+          id: 1,
+          title: "20% Off Electronics",
+          description: "Get 20% off on all electronics purchases over $100.",
+          code: "ELEC20OFF",
+          expiryDate: "2025-04-30",
+          merchant: "TechZone"
+        },
+        {
+          id: 2,
+          title: "Buy One Get One Free",
+          description: "Purchase any item and get another of equal or lesser value for free.",
+          code: "BOGOFREE",
+          expiryDate: "2025-03-31",
+          merchant: "FashionHub"
+        },
+        {
+          id: 3,
+          title: "$10 Off Your First Order",
+          description: "New customers get $10 off their first purchase of $50 or more.",
+          code: "NEWCUST10",
+          expiryDate: "2025-05-15",
+          merchant: "MegaMart"
+        },
+        {
+          id: 4,
+          title: "Free Shipping",
+          description: "Enjoy free shipping on all orders within the continental US.",
+          code: "FREESHIP",
+          expiryDate: "2025-04-15",
+          merchant: "QuickShop"
+        },
+        {
+          id: 5,
+          title: "30% Off Seasonal Items",
+          description: "Get 30% off on all seasonal items while supplies last.",
+          code: "SEASON30",
+          expiryDate: "2025-03-25",
+          merchant: "HomeGoods"
+        }
+      ];
+      
+      // Navigation setup
+      const navLinks = document.querySelectorAll('.nav-link');
+      const pages = document.querySelectorAll('.page');
+      
+      // Set initial active page
+      const setActivePage = (hash) => {
+        const targetId = hash || '#home';
+        
+        // Hide all pages
+        pages.forEach(page => page.style.display = 'none');
+        
+        // Show the target page
+        const targetPage = document.querySelector(targetId);
+        if (targetPage) {
+          targetPage.style.display = 'block';
+        }
+        
+        // Update active link
+        navLinks.forEach

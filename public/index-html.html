@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon Distribution System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Coupon Distribution System</h1>
+      <p>Get your exclusive coupon below!</p>
+    </header>
+    
+    <main>
+      <div class="coupon-container">
+        <div id="coupon-display" class="hidden">
+          <h2>Your Coupon</h2>
+          <div class="coupon">
+            <span id="coupon-code"></span>
+            <p id="coupon-description"></p>
+          </div>
+          <p id="claim-message"></p>
+        </div>
+        
+        <div id="claim-container">
+          <button id="claim-btn" class="btn">Claim Your Coupon</button>
+          <p id="error-message" class="error hidden"></p>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <p>This application distributes coupons in a round-robin manner with abuse prevention.</p>
+    </footer>
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html>

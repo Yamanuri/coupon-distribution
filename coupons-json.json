@@ -1,0 +1,42 @@
+[
+  {
+    "code": "SAVE10",
+    "description": "10% off your purchase"
+  },
+  {
+    "code": "FREESHIP",
+    "description": "Free shipping on any order"
+  },
+  {
+    "code": "BUY1GET1",
+    "description": "Buy one, get one free"
+  },
+  {
+    "code": "EXTRA15",
+    "description": "15% off your purchase"
+  },
+  {
+    "code": "WELCOME20",
+    "description": "20% off for new customers"
+  },
+  {
+    "code": "SPRING25",
+    "description": "25% off spring collection"
+  },
+  {
+    "code": "FLASH30",
+    "description": "30% off flash sale"
+  },
+  {
+    "code": "LOYAL15",
+    "description": "15% off for returning customers"
+  },
+  {
+    "code": "BDAY10",
+    "description": "10% off birthday special"
+  },
+  {
+    "code": "WEEKEND5",
+    "description": "5% off weekend shopping"
+  }
+]

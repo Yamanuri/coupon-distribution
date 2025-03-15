@@ -1,0 +1,5 @@
+[
+  { "code": "SAVE10", "discount": "10%" },
+  { "code": "FESTIVE15", "discount": "15%" },
+  { "code": "WELCOME20", "discount": "20%" }
+]

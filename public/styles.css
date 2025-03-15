@@ -1,0 +1,119 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f8cdda, #1f2f98);
+    color: #fff;
+    text-align: center;
+}
+
+/* Header */
+h1 {
+    font-size: 2.5rem;
+    color: #ffdd57;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Menu */
+nav {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background: rgba(255, 221, 87, 0.8);
+    color: #1f2f98;
+}
+
+/* Main Container */
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(135deg, #ff57b9, #ffdd57);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ffdd57, #ff57b9);
+    transform: scale(1.05);
+}
+
+/* Coupon Section */
+.coupon {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.coupon:hover {
+    transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    nav {
+        flex-direction: column;
+    }
+}

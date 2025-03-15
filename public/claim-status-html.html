@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claim Status - Coupon Distribution System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="claim-status.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Coupon Rewards Hub</h1>
+      <p>Check your coupon claim history and status</p>
+      <nav class="navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/claim-status.html" class="nav-link active">Claim Status</a>
+      </nav>
+    </header>
+    
+    <main>
+      <div class="status-page">
+        <div class="action-container">
+          <h2>Check Your Claim Status</h2>
+          <p>See your coupon history and when you can claim your next coupon.</p>
+          <button id="check-status-btn" class="btn">Check Status</button>
+        </div>
+        
+        <div id="status-container" class="status-container hidden">
+          <h3>Your Claim History</h3>
+          <p id="no-claims-message" class="hidden">You haven't claimed any coupons yet.</p>
+          <div id="claim-history" class="claim-history"></div>
+          <p id="status-message" class="status-message"></p>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <p>© 2025 Coupon Rewards Hub | <a href="/">Claim Coupon</a></p>
+    </footer>
+  </div>
+  
+  <script src="claim-status.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claim Your Coupon</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Coupon Distribution System</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/coupons">Available Coupons</a></li>
+          <li><a href="/claim" class="active">Claim a Coupon</a></li>
+          <li><a href="/status">Check Status</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <h2>Claim Your Coupon</h2>
+      
+      <div class="claim-box">
+        <p>Click the button below to claim your coupon. Remember, you can only claim one coupon per hour.</p>
+        <button id="claimButton" class="btn">Claim Your Coupon</button>
+      </div>
+      
+      <div id="resultContainer" class="result-container" style="display:none;">
+        <div id="resultMessage"></div>
+        <div id="couponContainer" class="coupon-container" style="display:none;">
+          <p>Your coupon code:</p>
+          <div class="coupon-code" id="couponCode"></div>
+          <p id="couponDescription"></p>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <p>&copy; 2025 Coupon Distribution System | Internship Assignment</p>
+    </footer>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const claimButton = document.getElementById('claimButton');
+      const resultContainer = document.getElementById('resultContainer');
+      const resultMessage = document.getElementById('resultMessage');
+      const couponContainer = document.getElementById('couponContainer');
+      const couponCode = document.getElementById('couponCode');
+      const couponDescription = document.getElementById('couponDescription');
+      
+      claimButton.addEventListener('click', async () => {
+        // Disable button during processing
+        claimButton.disabled = true;
+        claimButton.textContent = 'Processing...';
+        
+        try {
+          const response = await fetch('/api/claim-coupon', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const data = await response.json();
+          
+          // Show result container
+          resultContainer.style.display = 'block';
+          
+          if (data.success) {
+            // Success case
+            resultContainer.className = 'result-container success';
+            resultMessage.textContent = 'Congratulations! You have successfully claimed a coupon:';
+            couponContainer.style.display = 'block';
+            couponCode.textContent = data.coupon.code;
+            couponDescription.textContent = data.coupon.description;
+          } else {
+            // Error case
+            resultContainer.className = 'result-container error';
+            resultMessage.textContent = data.message;
+            couponContainer.style.display = 'none';
+          }
+        } catch (error) {
+          // Error handling
+          resultContainer.style.display = 'block';
+          resultContainer.className = 'result-container error';
+          resultMessage.textContent = 'An error occurred. Please try again later.';
+          couponContainer.style.display = 'none';
+          console.error('Error:', error);
+        }
+        
+        // Re-enable button
+        claimButton.disabled = false;
+        claimButton.textContent = 'Claim Your Coupon';
+      });
+    });
+  </script>
+</body>
+</html>
